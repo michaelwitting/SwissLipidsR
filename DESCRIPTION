@@ -1,13 +1,18 @@
 Package: SwissLipidsR
-Title: What the Package Does (One Line, Title Case)
-Version: 0.0.0.9000
+Title: R access to the SwissLipids API
+Version: 0.1.0
 Authors@R: 
-    person(given = "First",
-           family = "Last",
+    person(given = "Michael",
+           family = "Witting",
            role = c("aut", "cre"),
-           email = "first.last@example.com",
+           email = "michael.witting@helmholtz-muenchen.de",
            comment = c(ORCID = "YOUR-ORCID-ID"))
-Description: What the package does (one paragraph).
-License: What license it uses
+Description: This package delivers several functions to access the SwissLipids API.
+    All functionalities offered by this API are available in R.
+License: CC-BY
 Encoding: UTF-8
 LazyData: true
+RoxygenNote: 7.1.0
+Depends:
+    R (>= 3.6),
+    jsonlite
