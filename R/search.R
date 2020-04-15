@@ -1,21 +1,34 @@
-### search
-
+#' @title SwissLipids API Mapping
+#'
+#' @description
+#'
+#' `swissLipidsSearch` Performs a basic search using the SwissLipids API
+#'
+#' @param term `character` Abbrevation of data from which the ids shall be mapped
+#' @param type `character` Type of search term, either metabolite or protein
+#'
+#' @return `list` A named list with the search results
+#'
+#' @author Michael Witting
+#'
 #'
 #' @importFrom jsonlite fromJSON
 #'
 #' @export
-swissLipidsSearch <-
-  function(term, type = c("metabolite", "protein")) {
+#'
+#' @examples
+#'
+#' swissLipidsSearch("Phosphatidate (36:2)")
+swissLipidsSearch <- function(term, type = c("metabolite", "protein")) {
     # check input
     match.arg(type)
 
     # create query url
-    query_url <-
-      paste0(BASE_URL, "search?term=", term, "&type=", type)
+    query_url <- paste0(BASE_URL, "search?term=", term, "&type=", type)
 
     fromJSON(URLencode(query_url))
 
-  }
+}
 
 
 swissLipidsAdvancedSearch <- function(name = NA_character_,
