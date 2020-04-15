@@ -12,7 +12,7 @@ r_packages:
 - roxygen2
 
 r_github_packages:
-  - rformassspectrometry/MsCoreUtils
+  - michaelwitting/SwissLipidsR
 
 before_install:
   - mkdir -p ~/.R
