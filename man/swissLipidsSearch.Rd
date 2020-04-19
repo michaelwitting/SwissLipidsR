@@ -2,17 +2,17 @@
 % Please edit documentation in R/search.R
 \name{swissLipidsSearch}
 \alias{swissLipidsSearch}
-\title{SwissLipids API Mapping}
+\title{SwissLipids API basic search function}
 \usage{
 swissLipidsSearch(term, type = c("metabolite", "protein"))
 }
 \arguments{
-\item{term}{`character` Abbrevation of data from which the ids shall be mapped}
+\item{term}{`character` Search term which shall be searched in SwissLipids}
 
 \item{type}{`character` Type of search term, either metabolite or protein}
 }
 \value{
-`list` A named list with the search results
+`data.frame` A data.frame with the search results
 }
 \description{
 `swissLipidsSearch` Performs a basic search using the SwissLipids API
@@ -22,5 +22,5 @@ swissLipidsSearch(term, type = c("metabolite", "protein"))
 swissLipidsSearch("Phosphatidate (36:2)")
 }
 \author{
-Michael Witting
+Michael Witting#'
 }

@@ -1,16 +1,15 @@
-#' @title SwissLipids API Mapping
+#' @title SwissLipids API basic search function
 #'
 #' @description
 #'
 #' `swissLipidsSearch` Performs a basic search using the SwissLipids API
 #'
-#' @param term `character` Abbrevation of data from which the ids shall be mapped
+#' @param term `character` Search term which shall be searched in SwissLipids
 #' @param type `character` Type of search term, either metabolite or protein
 #'
-#' @return `list` A named list with the search results
+#' @return `data.frame` A data.frame with the search results
 #'
-#' @author Michael Witting
-#'
+#' @author Michael Witting#'
 #'
 #' @importFrom jsonlite fromJSON
 #' @importFrom utils URLencode
@@ -31,7 +30,35 @@ swissLipidsSearch <- function(term, type = c("metabolite", "protein")) {
 
 }
 
-
+#' @title SwissLipids API advanced search function
+#'
+#' @description
+#'
+#' `swissLipidsAdvancedSearch` Performs an advanced search using the SwissLipids API
+#'
+#' @param name `character`
+#' @param smiles `character`
+#' @param inchikey `character`
+#' @param formula `character`
+#' @param mz `numeric`
+#' @param adduct `character`
+#' @param massErrorRate `numeric`
+#'
+#' @return `data.frame` A named list with the search results
+#'
+#' @author Michael Witting#'
+#'
+#' @importFrom jsonlite fromJSON
+#' @importFrom utils URLencode
+#'
+#' @export
+#'
+#' @examples
+#'
+#'swissLipidsAdvancedSearch(name = "PC(34:2)")
+#'swissLipidsAdvancedSearch(formula = "C39H76NO8P")
+#'
+#'swissLipidsAdvancedSearch(mz = 410.243, adduct = "MassExact", massErrorRate = 0.001)
 swissLipidsAdvancedSearch <- function(name = NA_character_,
                                       smiles = NA_character_,
                                       inchikey = NA_character_,
@@ -63,25 +90,10 @@ swissLipidsAdvancedSearch <- function(name = NA_character_,
   }
 
   if (!is.na(adduct)) {
-    if (!any(
-      adduct,
-      c(
-        "MassExact",
-        "MassM",
-        "MassMH",
-        "MassMK",
-        "MassMNa",
-        "MassMLi",
-        "MassMNH4",
-        "MassMmH",
-        "MassMCl",
-        "MassMOAc"
-      )
-    )) {
-      stop(
-        adduct,
-        " is not correct, please select from MassExact, MassM, MassMH, MassMK, MassMNa, MassMLi, MassMNH4, MassMmH, MassMCl, MassMOAc"
-      )
+    if (!any(adduct %in% c("MassExact", "MassM", "MassMH", "MassMK", "MassMNa",
+                       "MassMLi", "MassMNH4", "MassMmH", "MassMCl", "MassMOAc")))
+      {
+      stop(adduct, " is not correct, please select from MassExact, MassM, MassMH, MassMK, MassMNa, MassMLi, MassMNH4, MassMmH, MassMCl, MassMOAc")
     }
 
     query <- paste0(query, "adduct=", adduct, "&")
@@ -97,9 +109,12 @@ swissLipidsAdvancedSearch <- function(name = NA_character_,
   # create query url
   query_url <- paste0(BASE_URL, query)
 
-  fromJSON(URLencode(query_url))
+  jsonlite::fromJSON(URLencode(query_url))
 
 }
+
+
+
 
 swissLipidsGetEntity <- function(entity_id) {
   # create query url
