@@ -1,4 +1,4 @@
-test_that("correct calculation of adduct m/z", {
+test_that("correct mapping of results", {
 
   from <- "SwissLipids"
   to <- "LipidMaps"
@@ -12,5 +12,6 @@ test_that("correct calculation of adduct m/z", {
   # check for correct ids
   expect_equal(results$to[[1]]$id, "LMGP01030010")
   expect_equal(results$to[[2]]$id, "LMGP01010005")
+
 
 })

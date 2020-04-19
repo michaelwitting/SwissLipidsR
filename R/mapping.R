@@ -15,6 +15,7 @@
 #'
 #'
 #' @importFrom jsonlite fromJSON
+#' @importFrom utils URLencode
 #'
 #' @export
 #'
@@ -35,6 +36,6 @@ swissLipidsMapping <- function(from = c("SwissLipids", "LipidMaps", "ChEBI", "HM
 
   query_url <- paste0(BASE_URL, "mapping?from=", from, "&to=", to, "&ids=", paste(ids, collapse = ","))
 
-  fromJSON(URLencode(query_url))
+  jsonlite::fromJSON(utils::URLencode(query_url))
 
 }

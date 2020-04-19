@@ -9,10 +9,16 @@ Authors@R:
            comment = c(ORCID = "YOUR-ORCID-ID"))
 Description: This package delivers several functions to access the SwissLipids API.
     All functionalities offered by this API are available in R.
-License: CC-BY
+License: CC0
 Encoding: UTF-8
 LazyData: true
 RoxygenNote: 7.1.0
 Depends:
     R (>= 3.6),
-    jsonlite
+    jsonlite,
+    curl
+Suggests:
+    testthat,
+    knitr
+URL: https://github.com/michaelwitting/SwissLipidsR
+BugReports: https://github.com/michaelwitting/SwissLipidsR/issues

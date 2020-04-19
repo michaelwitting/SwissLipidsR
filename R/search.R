@@ -13,6 +13,7 @@
 #'
 #'
 #' @importFrom jsonlite fromJSON
+#' @importFrom utils URLencode
 #'
 #' @export
 #'
@@ -26,7 +27,7 @@ swissLipidsSearch <- function(term, type = c("metabolite", "protein")) {
     # create query url
     query_url <- paste0(BASE_URL, "search?term=", term, "&type=", type)
 
-    fromJSON(URLencode(query_url))
+    jsonlite::fromJSON(URLencode(query_url))
 
 }
 
