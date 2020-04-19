@@ -3,3 +3,4 @@
 export(swissLipidsMapping)
 export(swissLipidsSearch)
 importFrom(jsonlite,fromJSON)
+importFrom(utils,URLencode)
