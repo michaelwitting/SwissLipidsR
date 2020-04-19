@@ -9,7 +9,7 @@
 #' @param to `character` Abbrevation of database to which the ids shall be mapped
 #' @param ids `character` A vector of IDs that shall be mapped.
 #'
-#' @return `list` A named list of the same length as ids is returned.
+#' @return `data.frame` A named list of the same length as ids is returned.
 #'
 #' @author Michael Witting
 #'
