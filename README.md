@@ -1,9 +1,6 @@
 # SwissLipidsR
 R package to interface with the SwissLipids API
 
-# SwissLipidsR
-R package to interface with the SwissLipids API
-
 [![Project Status: WIP – Initial development is in progress, but there has not yet been a stable, usable release suitable for the public.](https://www.repostatus.org/badges/latest/wip.svg)](https://www.repostatus.org/#wip)
 [![build status](https://github.com/michaelwitting/SwissLipidsR/workflows/R-CMD-check/badge.svg)](https://github.com/michaelwitting/SwissLipidsR/actions?query=workflow%3AR-CMD-check)
 [![test coverage](https://github.com/michaelwitting/SwissLipidsR/test-coverage/badge.svg)](https://github.com/michaelwitting/SwissLipidsR/actions?query=workflow%3Atest-coverage)
