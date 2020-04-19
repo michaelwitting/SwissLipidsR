@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>SwissLipids API Mapping — swissLipidsSearch • SwissLipidsR</title>
+<title>SwissLipids API basic search function — swissLipidsSearch • SwissLipidsR</title>
 
 
 <!-- jquery -->
@@ -39,7 +39,7 @@
 
 
 
-<meta property="og:title" content="SwissLipids API Mapping — swissLipidsSearch" />
+<meta property="og:title" content="SwissLipids API basic search function — swissLipidsSearch" />
 <meta property="og:description" content="`swissLipidsSearch` Performs a basic search using the SwissLipids API" />
 
 
@@ -72,7 +72,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">SwissLipidsR</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.1</span>
       </span>
     </div>
 
@@ -108,7 +108,7 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>SwissLipids API Mapping</h1>
+    <h1>SwissLipids API basic search function</h1>
     <small class="dont-index">Source: <a href='https://github.com/michaelwitting/SwissLipidsR/blob/master/R/search.R'><code>R/search.R</code></a></small>
     <div class="hidden name"><code>swissLipidsSearch.Rd</code></div>
     </div>
@@ -124,7 +124,7 @@
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>term</th>
-      <td><p>`character` Abbrevation of data from which the ids shall be mapped</p></td>
+      <td><p>`character` Search term which shall be searched in SwissLipids</p></td>
     </tr>
     <tr>
       <th>type</th>
@@ -134,7 +134,7 @@
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>`list` A named list with the search results</p>
+    <p>`data.frame` A data.frame with the search results</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'>
