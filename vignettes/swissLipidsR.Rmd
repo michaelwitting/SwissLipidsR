@@ -1,0 +1,107 @@
+---
+title: "swissLipidsR"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{swissLipidsR}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+# How to use <code>SwissLipidsR</code>
+
+SwissLipids is one of the major databases for lipids and lipid related projects.
+It offers an API for querying the database. <code>SwissLipidsR</code> is a package
+to interact with this API. It is based on <code>jsonlite</code> to interact with
+the webservice. This vignette explains the basic functions.
+
+```{r setup, message=FALSE}
+library(SwissLipidsR)
+```
+
+## Mapping of identifiers
+
+The SwissLipids API offers to map between different lipid related database identifier.
+Identifier from Swisslipids, LipidMaps, ChEBI or HMDB can be mapped to identifer
+from SwissLipids, LipidMaps, ChEBI, HMDB, UniProtKB or Rhea. The following example
+maps from SwissLipid IDs to LipidMaps IDs.
+
+```{r}
+# define mapping parameters
+ids <- c("SLM:000048885", "SLM:000000651")
+from <- "SwissLipids"
+to <- "LipidMaps"
+
+# perform mapping
+results <- swissLipidsMapping(from, to, ids)
+
+results
+```
+
+The results data frame contains a second nested data frame. This can be unnested
+using functions from the <code>tidyverse</code> package.
+
+```{r tidyverse, message=FALSE}
+library(tidyverse)
+```
+
+The function <code>unnest()</code> performs the required operation.
+
+```{r}
+unnest(results, cols = c(to))
+```
+
+## Perform searches
+
+Beside identifier mapping the SwissLipids API offers different searching functionalities.
+The basic search can be used to get general information on possible entries.
+
+```{r}
+results <- swissLipidsSearch("Phosphatidate (36:2)")
+```
+
+Different advanced search options are available, e.g. searching by name, SMILES,
+InChIKey, formula or mass. The first example searches all results that match the
+lipid shorthand notation PC(34:2).
+
+```{r}
+results <- swissLipidsAdvancedSearch(name = "PC(34:2)")
+
+head(results)
+```
+
+The second example performs a sum formula search. This search might return results
+from different levels of the lipid classification. The additional function
+<code>filterResults</code> can be used to filter the results based on the 
+classficiation level.
+
+```{r}
+results <- swissLipidsAdvancedSearch(formula = "C39H76NO8P")
+
+head(results)
+
+results <- swissLipidsAdvancedSearch(formula = "C39H76NO8P") %>% 
+  filterResults(classification_level = "Species")
+
+head(results)
+```
+
+Also searches on masses can be performed. The search mass can be either a neutral
+mass ("MassExact") or an adduct mass. Currently supported adducts are [M]+ ("MassM"),
+[M+H]+ ("MassMH"), [M+K]+ ("MassMK"), [M+Na]+ ("MassMNa"), [M+Li]+ ("MassMLi"),
+[M+NH4]+ ("MassMNH4"), [M-H]- ("MassMmH"), [M+Cl]- ("MassMCl"), [M+HAc-H]- ("MassMOAc").
+
+```{r}
+results <- swissLipidsAdvancedSearch(mz = 410.243,
+                                     adduct = "MassExact",
+                                     massErrorRate = 0.001)
+
+head(results)
+```
+

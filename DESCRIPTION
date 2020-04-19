@@ -19,6 +19,8 @@ Depends:
     curl
 Suggests:
     testthat,
-    knitr
+    knitr,
+    rmarkdown
 URL: https://github.com/michaelwitting/SwissLipidsR
 BugReports: https://github.com/michaelwitting/SwissLipidsR/issues
+VignetteBuilder: knitr
