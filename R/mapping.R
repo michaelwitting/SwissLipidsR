@@ -14,7 +14,7 @@
 #' @author Michael Witting
 #'
 #'
-#' @importFrom jsonlite fromJSON
+#' @importFrom jsonlite fromJSON flatten
 #' @importFrom utils URLencode
 #'
 #' @export

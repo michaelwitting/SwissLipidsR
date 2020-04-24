@@ -11,8 +11,9 @@
 #'
 #' @author Michael Witting#'
 #'
-#' @importFrom jsonlite fromJSON
+#' @importFrom jsonlite fromJSON flatten
 #' @importFrom utils URLencode
+#' @importFrom dplyr bind_rows
 #'
 #' @export
 #'
@@ -20,13 +21,14 @@
 #'
 #' swissLipidsSearch("Phosphatidate (36:2)")
 swissLipidsSearch <- function(term, type = c("metabolite", "protein")) {
+
     # check input
     match.arg(type)
 
     # create query url
     query_url <- paste0(BASE_URL, "search?term=", term, "&type=", type)
 
-    jsonlite::fromJSON(URLencode(query_url))
+    jsonlite::fromJSON(URLencode(query_url), flatten = TRUE)
 
 }
 
@@ -48,7 +50,7 @@ swissLipidsSearch <- function(term, type = c("metabolite", "protein")) {
 #'
 #' @author Michael Witting#'
 #'
-#' @importFrom jsonlite fromJSON
+#' @importFrom jsonlite fromJSON flatten
 #' @importFrom utils URLencode
 #'
 #' @export
@@ -93,7 +95,8 @@ swissLipidsAdvancedSearch <- function(name = NA_character_,
     if (!any(adduct %in% c("MassExact", "MassM", "MassMH", "MassMK", "MassMNa",
                        "MassMLi", "MassMNH4", "MassMmH", "MassMCl", "MassMOAc")))
       {
-      stop(adduct, " is not correct, please select from MassExact, MassM, MassMH, MassMK, MassMNa, MassMLi, MassMNH4, MassMmH, MassMCl, MassMOAc")
+      stop(adduct, " is not correct, please select from MassExact, MassM, MassMH,
+           MassMK, MassMNa, MassMLi, MassMNH4, MassMmH, MassMCl, MassMOAc")
     }
 
     query <- paste0(query, "adduct=", adduct, "&")
@@ -109,22 +112,67 @@ swissLipidsAdvancedSearch <- function(name = NA_character_,
   # create query url
   query_url <- paste0(BASE_URL, query)
 
-  jsonlite::fromJSON(URLencode(query_url))
+  jsonlite::fromJSON(URLencode(query_url), flatten = TRUE)
+
+}
+
+#' @title SwissLipids API basic search function
+#'
+#' @description
+#'
+#' `swissLipidsGetChildren` Performs a search for potential children
+#'
+#' @param term `entity_id` Search term for which children entries shall  be
+#'     searched in SwissLipids
+#'
+#' @author Michael Witting#'
+#'
+#' @importFrom jsonlite fromJSON flatten
+#' @importFrom utils URLencode
+#' @importFrom dplyr bind_rows
+#'
+#' @export
+#'
+#' @examples
+#'
+#' swissLipidsGetChildren("SLM:000000352")
+swissLipidsGetChildren <- function(entity_id) {
+
+  # create query url
+  query_url <- paste0(BASE_URL, "/children?entity_id=", entity_id)
+
+  results <- jsonlite::fromJSON(URLencode(query_url))
+
+  results_df <- data.frame()
+
+  if(length(results) > 1) {
+
+    for(i in 1:length(results)) {
+
+      results_df <- bind_rows(results_df, flatten(results[[i]]))
+
+    }
+
+  } else {
+
+    results_df <- as.data.frame(results)
+
+  }
+
+  results_df
 
 }
 
 
 
-
+# ==============================================================================
+# DEVELOPMENT
+# ==============================================================================
 swissLipidsGetEntity <- function(entity_id) {
+
   # create query url
   query_url <- paste0(BASE_URL, "entity/entity_id=", entity_id)
 
   fromJSON(URLencode(query_url))
-
-}
-
-
-swissLipidsGetChildren <- function(x) {
 
 }

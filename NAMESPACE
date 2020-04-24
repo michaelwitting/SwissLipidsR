@@ -2,7 +2,10 @@
 
 export(filterResults)
 export(swissLipidsAdvancedSearch)
+export(swissLipidsGetChildren)
 export(swissLipidsMapping)
 export(swissLipidsSearch)
+importFrom(dplyr,bind_rows)
+importFrom(jsonlite,flatten)
 importFrom(jsonlite,fromJSON)
 importFrom(utils,URLencode)

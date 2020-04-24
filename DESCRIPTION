@@ -6,7 +6,7 @@ Authors@R:
            family = "Witting",
            role = c("aut", "cre"),
            email = "michael.witting@helmholtz-muenchen.de",
-           comment = c(ORCID = "YOUR-ORCID-ID"))
+           comment = c(ORCID = "0000-0002-1462-4426"))
 Description: This package delivers several functions to access the SwissLipids API.
     All functionalities offered by this API are available in R.
 License: CC BY-SA 4.0
@@ -15,8 +15,9 @@ LazyData: true
 RoxygenNote: 7.1.0
 Depends:
     R (>= 3.6),
-    jsonlite,
-    curl
+    jsonlite (>= 1.6.1),
+    curl (>= 4.3),
+    dplyr (>= 0.8.5)
 Suggests:
     testthat,
     knitr,
