@@ -16,6 +16,7 @@
 #'
 #' @importFrom jsonlite fromJSON flatten
 #' @importFrom utils URLencode
+#' @importFrom curl curl_fetch_memory
 #'
 #' @export
 #'
@@ -36,6 +37,18 @@ swissLipidsMapping <- function(from = c("SwissLipids", "LipidMaps", "ChEBI", "HM
 
   query_url <- paste0(BASE_URL, "mapping?from=", from, "&to=", to, "&ids=", paste(ids, collapse = ","))
 
-  jsonlite::fromJSON(utils::URLencode(query_url))
+  # perform request
+  r <- curl::curl_fetch_memory(URLencode(query_url))
+
+  # dependent on status code return results
+  if(r$status_code == as.integer(200)) {
+
+    return(jsonlite::fromJSON(rawToChar(r$content), flatten = TRUE))
+
+  } else {
+
+    return(data.frame())
+
+  }
 
 }

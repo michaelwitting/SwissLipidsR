@@ -7,11 +7,10 @@ test_that("correct mapping of results", {
   results <- swissLipidsMapping(from, to, ids)
 
   # test correct length of list
-  expect_equal(length(results), 2)
+  expect_equal(nrow(results), 2)
 
   # check for correct ids
   expect_equal(results$to[[1]]$id, "LMGP01030010")
   expect_equal(results$to[[2]]$id, "LMGP01010005")
-
 
 })
