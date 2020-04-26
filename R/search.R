@@ -11,9 +11,9 @@
 #'
 #' @author Michael Witting#'
 #'
-#' @importFrom jsonlite fromJSON flatten
+#' @importFrom jsonlite fromJSON
 #' @importFrom utils URLencode
-#' @importFrom dplyr bind_rows
+#' @importFrom curl curl_fetch_memory
 #'
 #' @export
 #'
@@ -22,14 +22,25 @@
 #' swissLipidsSearch("Phosphatidate (36:2)")
 swissLipidsSearch <- function(term, type = c("metabolite", "protein")) {
 
-    # check input
-    match.arg(type)
+  # check input
+  match.arg(type)
 
-    # create query url
-    query_url <- paste0(BASE_URL, "search?term=", term, "&type=", type)
+  # create query url
+  query_url <- paste0(BASE_URL, "search?term=", term, "&type=", type)
 
-    jsonlite::fromJSON(URLencode(query_url), flatten = TRUE)
+  # perform request
+  r <- curl::curl_fetch_memory(URLencode(query_url))
 
+  # dependent on status code return results
+  if(r$status_code == as.integer(200)) {
+
+    return(jsonlite::fromJSON(rawToChar(r$content), flatten = TRUE))
+
+  } else {
+
+    return(data.frame())
+
+  }
 }
 
 #' @title SwissLipids API advanced search function
@@ -50,8 +61,9 @@ swissLipidsSearch <- function(term, type = c("metabolite", "protein")) {
 #'
 #' @author Michael Witting#'
 #'
-#' @importFrom jsonlite fromJSON flatten
+#' @importFrom jsonlite fromJSON
 #' @importFrom utils URLencode
+#' @importFrom curl curl_fetch_memory
 #'
 #' @export
 #'
@@ -80,7 +92,7 @@ swissLipidsAdvancedSearch <- function(name = NA_character_,
   }
 
   if (!is.na(inchikey)) {
-    query <- paste0(query, "InChIKey=", inchikey, "&")
+    query <- paste0(query, "InChIkey=", inchikey, "&")
   }
 
   if (!is.na(formula)) {
@@ -112,7 +124,19 @@ swissLipidsAdvancedSearch <- function(name = NA_character_,
   # create query url
   query_url <- paste0(BASE_URL, query)
 
-  jsonlite::fromJSON(URLencode(query_url), flatten = TRUE)
+  # perform request
+  r <- curl::curl_fetch_memory(URLencode(query_url))
+
+  # dependent on status code return results
+  if(r$status_code == as.integer(200)) {
+
+    return(jsonlite::fromJSON(rawToChar(r$content), flatten = TRUE))
+
+  } else {
+
+    return(data.frame())
+
+  }
 
 }
 
@@ -122,7 +146,7 @@ swissLipidsAdvancedSearch <- function(name = NA_character_,
 #'
 #' `swissLipidsGetChildren` Performs a search for potential children
 #'
-#' @param term `entity_id` Search term for which children entries shall  be
+#' @param entity_id `character` Search term for which children entries shall  be
 #'     searched in SwissLipids
 #'
 #' @author Michael Witting#'
@@ -130,6 +154,7 @@ swissLipidsAdvancedSearch <- function(name = NA_character_,
 #' @importFrom jsonlite fromJSON flatten
 #' @importFrom utils URLencode
 #' @importFrom dplyr bind_rows
+#' @importFrom curl curl_fetch_memory
 #'
 #' @export
 #'
@@ -141,26 +166,37 @@ swissLipidsGetChildren <- function(entity_id) {
   # create query url
   query_url <- paste0(BASE_URL, "/children?entity_id=", entity_id)
 
-  results <- jsonlite::fromJSON(URLencode(query_url))
+  # perform request
+  r <- curl::curl_fetch_memory(URLencode(query_url))
 
-  results_df <- data.frame()
+  # dependent on status code return results
+  if(r$status_code == as.integer(200)) {
 
-  if(length(results) > 1) {
+    results <- jsonlite::fromJSON(rawToChar(r$content))
 
-    for(i in 1:length(results)) {
+    results_df <- data.frame()
 
-      results_df <- bind_rows(results_df, flatten(results[[i]]))
+    if(length(results) > 1) {
+
+      for(i in 1:length(results)) {
+
+        results_df <- bind_rows(results_df, flatten(results[[i]]))
+
+      }
+
+    } else {
+
+      results_df <- as.data.frame(results)
 
     }
 
+    return(results_df)
+
   } else {
 
-    results_df <- as.data.frame(results)
+    return(data.frame())
 
   }
-
-  results_df
-
 }
 
 
