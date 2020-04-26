@@ -1,12 +1,20 @@
 test_that("basic searching", {
 
+  # peform search with single result
   results <- swissLipidsSearch("Phosphatidate (36:2)")
 
-  # test correct length of list
   expect_equal(nrow(results), 1)
-
-  # check for correct ids
   expect_equal(results$entity_id, "SLM:000055865")
+
+  # perform search with multiple results
+  results <- swissLipidsSearch("Glc")
+
+  expect_equal(nrow(results), 148)
+
+  # perform search with no result
+  results <- swissLipidsSearch("abc")
+
+  expect_equal(nrow(results), 0)
 
 })
 
@@ -26,6 +34,10 @@ test_that("advanced search", {
                                        adduct = "MassExact",
                                        massErrorRate = 0.001)
   expect_equal(nrow(results), 13)
+
+  # search by InChIKey
+  results <- swissLipidsAdvancedSearch(inchikey = "WTJKGGKOPKCXLL-VYOBOKEXSA-N")
+  expect_equal(nrow(results), 1)
 
 })
 

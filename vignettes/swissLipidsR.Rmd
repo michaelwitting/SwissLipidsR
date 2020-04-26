@@ -42,19 +42,7 @@ to <- "LipidMaps"
 results <- swissLipidsMapping(from, to, ids)
 
 results
-```
 
-The results data frame contains a second nested data frame. This can be unnested
-using functions from the <code>tidyverse</code> package.
-
-```{r tidyverse, message=FALSE}
-library(tidyverse)
-```
-
-The function <code>unnest()</code> performs the required operation.
-
-```{r}
-unnest(results, cols = c(to))
 ```
 
 ## Perform searches
