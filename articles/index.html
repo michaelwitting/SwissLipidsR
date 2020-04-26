@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>SwissLipids API Mapping — swissLipidsMapping • SwissLipidsR</title>
+<title>Articles • SwissLipidsR</title>
 
 
 <!-- jquery -->
@@ -39,9 +39,7 @@
 
 
 
-<meta property="og:title" content="SwissLipids API Mapping — swissLipidsMapping" />
-<meta property="og:description" content="`swissLipidsMapping` uses the SwissLipids API to perform mapping between
-    different database identifier" />
+<meta property="og:title" content="Articles" />
 
 
 
@@ -60,7 +58,7 @@
   </head>
 
   <body data-spy="scroll" data-target="#toc">
-    <div class="container template-reference-topic">
+    <div class="container template-article-index">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -121,63 +119,18 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>SwissLipids API Mapping</h1>
-    <small class="dont-index">Source: <a href='https://github.com/michaelwitting/SwissLipidsR/blob/master/R/mapping.R'><code>R/mapping.R</code></a></small>
-    <div class="hidden name"><code>swissLipidsMapping.Rd</code></div>
+      <h1>Articles</h1>
     </div>
 
-    <div class="ref-description">
-    <p>`swissLipidsMapping` uses the SwissLipids API to perform mapping between
-    different database identifier</p>
+    <div class="section ">
+      <h3>All vignettes</h3>
+      <p class="section-desc"></p>
+
+      <dl>
+        <dt><a href="swissLipidsR.html">swissLipidsR</a></dt>
+        <dd></dt>
+      </dl>
     </div>
-
-    <pre class="usage"><span class='fu'>swissLipidsMapping</span>(
-  <span class='kw'>from</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"SwissLipids"</span>, <span class='st'>"LipidMaps"</span>, <span class='st'>"ChEBI"</span>, <span class='st'>"HMDB"</span>),
-  <span class='kw'>to</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"SwissLipids"</span>, <span class='st'>"LipidMaps"</span>, <span class='st'>"ChEBI"</span>, <span class='st'>"HMDB"</span>, <span class='st'>"UniProtKB"</span>, <span class='st'>"Rhea"</span>),
-  <span class='no'>ids</span>
-)</pre>
-
-    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
-    <table class="ref-arguments">
-    <colgroup><col class="name" /><col class="desc" /></colgroup>
-    <tr>
-      <th>from</th>
-      <td><p>`character` Abbrevation of data from which the ids shall be mapped</p></td>
-    </tr>
-    <tr>
-      <th>to</th>
-      <td><p>`character` Abbrevation of database to which the ids shall be mapped</p></td>
-    </tr>
-    <tr>
-      <th>ids</th>
-      <td><p>`character` A vector of IDs that shall be mapped.</p></td>
-    </tr>
-    </table>
-
-    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
-
-    <p>`data.frame` A named list of the same length as ids is returned.</p>
-
-    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'>
-<span class='no'>ids</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"SLM:000048885"</span>, <span class='st'>"SLM:000000651"</span>)
-<span class='no'>from</span> <span class='kw'>&lt;-</span> <span class='st'>"SwissLipids"</span>
-<span class='no'>to</span> <span class='kw'>&lt;-</span> <span class='st'>"LipidMaps"</span>
-
-<span class='fu'>swissLipidsMapping</span>(<span class='no'>from</span>, <span class='no'>to</span>, <span class='no'>ids</span>)</div><div class='output co'>#&gt;                                                                                                  to
-#&gt; 1 LMGP01030010, 1-O-(1Z-hexadecenyl)-2-(5Z,8Z,11Z,14Z-eicosatetraenoyl)-sn-glycero-3-phosphocholine
-#&gt; 2                      LMGP01010005, 1-hexadecanoyl-2-(9Z-octadecenoyl)-sn-glycero-3-phosphocholine
-#&gt;         from.id
-#&gt; 1 SLM:000048885
-#&gt; 2 SLM:000000651
-#&gt;                                                                             from.name
-#&gt; 1 1-O-(1Z-hexadecenyl)-2-(5Z,8Z,11Z,14Z-eicosatetraenoyl)-sn-glycero-3-phosphocholine
-#&gt; 2                      1-hexadecanoyl-2-(9Z-octadecenoyl)-sn-glycero-3-phosphocholine</div></pre>
-  </div>
-  <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
-    <nav id="toc" data-toggle="toc" class="sticky-top">
-      <h2 data-toc-skip>Contents</h2>
-    </nav>
   </div>
 </div>
 

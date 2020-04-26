@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>SwissLipids API Mapping — swissLipidsMapping • SwissLipidsR</title>
+<title>Filter results on specific classification level — filterResults • SwissLipidsR</title>
 
 
 <!-- jquery -->
@@ -39,9 +39,8 @@
 
 
 
-<meta property="og:title" content="SwissLipids API Mapping — swissLipidsMapping" />
-<meta property="og:description" content="`swissLipidsMapping` uses the SwissLipids API to perform mapping between
-    different database identifier" />
+<meta property="og:title" content="Filter results on specific classification level — filterResults" />
+<meta property="og:description" content="`filterResults` performs filtering of results obtained from other functions" />
 
 
 
@@ -121,58 +120,56 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>SwissLipids API Mapping</h1>
-    <small class="dont-index">Source: <a href='https://github.com/michaelwitting/SwissLipidsR/blob/master/R/mapping.R'><code>R/mapping.R</code></a></small>
-    <div class="hidden name"><code>swissLipidsMapping.Rd</code></div>
+    <h1>Filter results on specific classification level</h1>
+    <small class="dont-index">Source: <a href='https://github.com/michaelwitting/SwissLipidsR/blob/master/R/filterResults.R'><code>R/filterResults.R</code></a></small>
+    <div class="hidden name"><code>filterResults.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>`swissLipidsMapping` uses the SwissLipids API to perform mapping between
-    different database identifier</p>
+    <p>`filterResults` performs filtering of results obtained from other functions</p>
     </div>
 
-    <pre class="usage"><span class='fu'>swissLipidsMapping</span>(
-  <span class='kw'>from</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"SwissLipids"</span>, <span class='st'>"LipidMaps"</span>, <span class='st'>"ChEBI"</span>, <span class='st'>"HMDB"</span>),
-  <span class='kw'>to</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"SwissLipids"</span>, <span class='st'>"LipidMaps"</span>, <span class='st'>"ChEBI"</span>, <span class='st'>"HMDB"</span>, <span class='st'>"UniProtKB"</span>, <span class='st'>"Rhea"</span>),
-  <span class='no'>ids</span>
+    <pre class="usage"><span class='fu'>filterResults</span>(
+  <span class='no'>results</span>,
+  <span class='kw'>classification_level</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"Category"</span>, <span class='st'>"Main class"</span>, <span class='st'>"Sub class"</span>, <span class='st'>"Species"</span>,
+    <span class='st'>"Molecular subspecies"</span>, <span class='st'>"Structural subspecies"</span>, <span class='st'>"Isomeric subspecies"</span>)
 )</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>from</th>
-      <td><p>`character` Abbrevation of data from which the ids shall be mapped</p></td>
+      <th>results</th>
+      <td><p>`data.frame` Result data.frame from SwissLipidsR</p></td>
     </tr>
     <tr>
-      <th>to</th>
-      <td><p>`character` Abbrevation of database to which the ids shall be mapped</p></td>
-    </tr>
-    <tr>
-      <th>ids</th>
-      <td><p>`character` A vector of IDs that shall be mapped.</p></td>
+      <th>classification_level</th>
+      <td><p>`character` Level of classification that shall be returned</p></td>
     </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>`data.frame` A named list of the same length as ids is returned.</p>
+    <p>`data.frame` A filtered data.frame is returned</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'>
-<span class='no'>ids</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"SLM:000048885"</span>, <span class='st'>"SLM:000000651"</span>)
-<span class='no'>from</span> <span class='kw'>&lt;-</span> <span class='st'>"SwissLipids"</span>
-<span class='no'>to</span> <span class='kw'>&lt;-</span> <span class='st'>"LipidMaps"</span>
-
-<span class='fu'>swissLipidsMapping</span>(<span class='no'>from</span>, <span class='no'>to</span>, <span class='no'>ids</span>)</div><div class='output co'>#&gt;                                                                                                  to
-#&gt; 1 LMGP01030010, 1-O-(1Z-hexadecenyl)-2-(5Z,8Z,11Z,14Z-eicosatetraenoyl)-sn-glycero-3-phosphocholine
-#&gt; 2                      LMGP01010005, 1-hexadecanoyl-2-(9Z-octadecenoyl)-sn-glycero-3-phosphocholine
-#&gt;         from.id
-#&gt; 1 SLM:000048885
-#&gt; 2 SLM:000000651
-#&gt;                                                                             from.name
-#&gt; 1 1-O-(1Z-hexadecenyl)-2-(5Z,8Z,11Z,14Z-eicosatetraenoyl)-sn-glycero-3-phosphocholine
-#&gt; 2                      1-hexadecanoyl-2-(9Z-octadecenoyl)-sn-glycero-3-phosphocholine</div></pre>
+<span class='no'>results</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='swissLipidsAdvancedSearch.html'>swissLipidsAdvancedSearch</a></span>(<span class='kw'>formula</span> <span class='kw'>=</span> <span class='st'>"C39H76NO8P"</span>)
+<span class='fu'>filterResults</span>(<span class='no'>results</span>, <span class='kw'>classification_level</span> <span class='kw'>=</span> <span class='st'>"Species"</span>)</div><div class='output co'>#&gt;        entity_id                     entity_name external_id entity_type
+#&gt; 34 SLM:000056487      Phosphatidylcholine (31:1)              metabolite
+#&gt; 70 SLM:000057166 Phosphatidylethanolamine (34:1)              metabolite
+#&gt;    nb_exp_annot classification_level stats.entity_id stats.nb_cheminfo
+#&gt; 34            0              Species   SLM:000056487                 1
+#&gt; 70            0              Species   SLM:000057166                 1
+#&gt;    stats.nb_classification stats.nb_metabolism stats.nb_infered_metabolism
+#&gt; 34                       1                   0                           4
+#&gt; 70                       1                   0                           0
+#&gt;    stats.nb_functions stats.nb_go stats.nb_interactions stats.nb_locations
+#&gt; 34                  0           0                     0                  1
+#&gt; 70                  0           4                     0                  1
+#&gt;    stats.nb_genetics stats.nb_total
+#&gt; 34                 0              5
+#&gt; 70                 0              5</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
